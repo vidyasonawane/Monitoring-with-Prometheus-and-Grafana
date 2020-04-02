@@ -1,6 +1,6 @@
 # Monitoring-with-Prometheus-and-Grafana
 
-## Prometheus:
+## [Prometheus](https://github.com/prometheus/prometheus):
   - Open source **monitoring tool**
   - time series database
   - built by soundcloud (2012-13), later open sourced (2015)
@@ -10,7 +10,7 @@
   - includes flexible query language.
   - It collects the metrics from monitored targets by **scraping metrics HTTP endpoints.**
   
-## Node Exporter:
+## [Node Exporter](https://github.com/prometheus/node_exporter):
   - used for monitoring the Nodes (Servers) with prometheus.
   - It is a prometheus exporter for hardware and OS metrics exposed by LINUX/UNIX kernels, written in Go with pluggable metric collectors.
   - The [WMI exporter](https://github.com/martinlindhe/wmi_exporter) is recommended for Windows users.
