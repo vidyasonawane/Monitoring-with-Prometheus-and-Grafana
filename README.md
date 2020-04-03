@@ -25,6 +25,10 @@
     - cluster managers: Kubernetes, Marathon, etc.
     - generic mechanisms: DNS,Consul, Zookeeper,etc.
 
+## [Exporters](https://prometheus.io/docs/instrumenting/exporters/)
+  - exporters are build for exporting prometheus metrics from existing 3rd party metrics.
+  - Examples: MySQL server exporter, Memcatched exporter, consul exporter,Node/system exporter, etc.
+    
 ## Important Links:
   - [Prometheus Documentation](https://prometheus.io/docs/)
   - [promQL Basics](https://prometheus.io/docs/prometheus/latest/querying/basics/)
