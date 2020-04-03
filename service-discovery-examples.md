@@ -22,3 +22,29 @@ scrape_configs:
   - the more information can be found [here](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#ec2_sd_config).
   - Relabeling is a powerful tool to dynamically rewrite the label set of a target before it gets scraped. Multiple relabeling steps can be configured per scrape configuration. They are applied to the label set of each target in order of their appearance in the configuration file.
   - The relabel_config documentation can be found [here](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config)
+  
+  
+### Kubernetes
+  - Add the following in prometheus.yml
+  ```
+scrape_configs:
+  - job_name: 'kubernetes'
+    kubernetes_sd_configs:
+      - api_servers:
+        - https://kubernets.default.svc
+        in_cluster: true
+        
+        basic_auth:
+        username: prometheus
+        password: secret
+        retry_interval: 5s
+        
+  - job_name: 'kubernetes-service-endpoints'
+    kubernetes_sd_configs:
+      - api_servers:
+        - https://kube-master.prometheuscourse.com
+        in_cluster: true
+
+```
+  - the more information can be found [here](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#kubernetes_sd_config).
+ 
