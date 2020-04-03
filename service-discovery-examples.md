@@ -62,3 +62,34 @@ scrape_configs:
         - metrics.haproxy.example.com
 ```
   - the more information can be found [here](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#dns_sd_config).
+  
+
+### File based service discovery
+  - Add the following in prometheus.yml
+  ```
+scrape_configs:
+  - job_name: 'dummy'
+    file_sd_configs:
+      - files:
+        - targets.json
+```
+  - Format target.json
+  ```
+[
+  {
+    "targets": ["myslavel"9104","myslave2:9104"],
+    "labels": {
+      "env":"prod",
+      "job": "mysql_slave"
+    }
+  },
+  {
+    "targets": ["mymaster:9104"],
+    "labels": {
+      "env":"prod",
+      "job": "mysql_master"
+    }
+  }
+]
+```
+  - the complete guide can be found [here](https://prometheus.io/docs/guides/file-sd/).
