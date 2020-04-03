@@ -28,6 +28,49 @@
 ## [Exporters](https://prometheus.io/docs/instrumenting/exporters/)
   - exporters are build for exporting prometheus metrics from existing 3rd party metrics.
   - Examples: MySQL server exporter, Memcatched exporter, consul exporter,Node/system exporter, etc.
+  
+## [Alerting](https://prometheus.io/docs/alerting/overview/)
+  - Alerting with Prometheus is separated into two parts. 
+    - Alerting rules in Prometheus server.
+    - The Alertmanager
+  - The main steps to setting up alerting and notifications are:
+    - Setup and configure the Alertmanager
+    - Configure Prometheus to talk to the Alertmanager
+    - Create alerting rules in Prometheus
+  - the best prectice is to separate the alerts from prometheus config. Add an include in prometheus.yml
+    ```
+    rule_files:
+      - "etc/prometheus/alerts.rules"
+    ```
+  - Alert format:
+    ```
+     alert <alert name>
+        if <expression>
+          [for <duration>]
+          [labels <label set>]
+          [annotations <label set>]
+    ```
+    - [DEfining Alerting rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/#defining-alerting-rules)
+   
+   - **Alertmanager**
+      - handles the alerts fired by prometheus server
+      - handles deduplication, grouping and routing of alerts
+      - routes alerts to receivers (Pagerduty, Opsgenie, email, slack, etc)
+      - Alertmanager configuration is written in: /etc/alertmanager/alertmanager.yml
+      - you can create a high available alertmanager cluster using mesh confug.
+      - Do not load balence this service
+        - use list of alertmanager nodes in prometheus config.
+      - All alerts are sent to all known alertmanager nodes
+      - Guarantees the notification is at least send once.
+      - Alertmanager runs on port 9093
+      - Alertmanager Concepts:
+        - Grouping: groups similar alerts into one notification.
+        - Inhibition: Silence other alerts if one specified alert is already fixed.
+        - Silences: A simple way to mute certain notifications.
+      - Alert states:
+        - Inactive: No rule is met
+        - Pending: Rule is met but suppressed due to validations.
+        - Firing: Alert is sent to configured channel. (mail, slack, etc)
     
 ## Important Links:
   - [Prometheus Documentation](https://prometheus.io/docs/)
