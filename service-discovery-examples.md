@@ -47,4 +47,18 @@ scrape_configs:
 
 ```
   - the more information can be found [here](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#kubernetes_sd_config).
- 
+  
+### DNS
+  - Add the following in prometheus.yml
+  ```
+scrape_configs:
+  - job_name: 'mysql'
+    dns_sd_configs:
+      - names:
+        - metrics.mysql.example.com 
+  - job_name: 'haproxy'
+    dns_sd_configs:
+      - names:
+        - metrics.haproxy.example.com
+```
+  - the more information can be found [here](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#dns_sd_config).
