@@ -16,3 +16,17 @@
   - The [WMI exporter](https://github.com/martinlindhe/wmi_exporter) is recommended for Windows users.
   - Node exporter will expose machine metrics of Linux/Unix machines. e.g. CPU Usage, memory usage,etc
   - by default it runs on port 9100.
+  
+## Service Discovery
+  - Having to manually update list of machines in configuration file gets quite annoying after a while. Service discovery allows you to automatically discover and monitor your service or services.
+  - Definition: Service discovery is automatic detection of devices and services offered by these devices on computer network.
+  - Prometheus has support for 
+    - cloud providers: AWS, Azure, Google, etc.
+    - cluster managers: Kubernetes, Marathon, etc.
+    - generic mechanisms: DNS,Consul, Zookeeper,etc.
+
+## Important Links:
+  - [Prometheus Documentation](https://prometheus.io/docs/)
+  - [promQL Basics](https://prometheus.io/docs/prometheus/latest/querying/basics/)
+  - [Querying Examples](https://prometheus.io/docs/prometheus/latest/querying/examples/#query-examples)
+  - [Configuration file](https://prometheus.io/docs/prometheus/latest/configuration/configuration/)
