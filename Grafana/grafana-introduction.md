@@ -25,3 +25,12 @@
 - We can change the database and paths in `/etc/grafan/grafan.ini`
 
 
+## Demo (Provisioning grafana using console)
+- Install grafana using `2-install-grafana.sh` script
+- Copy the `datasource-prometheus.yml` file into `etc/grafana/provisioning/datasources` folder
+- Copy the `dashboards.yml` file into `etc/grafana/provisioning/dashboards` folder.
+- Copy `node-dashboard.json` (you can use any exported json file) to `var/lib/grafana/dashboards` (this path is written in dashboards.yml file) folder.
+- Go to `server-ip:3000` in browser, go to Home and under `General` header, you will see Node Statistics Dashboard.
+- In this way, we have created a dashboard using console
+
+- To export the chart, go to settings -> JSON Model
