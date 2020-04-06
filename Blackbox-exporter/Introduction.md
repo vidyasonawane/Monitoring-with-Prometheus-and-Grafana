@@ -96,7 +96,51 @@
 - `ps aux | grep prometheus`
 - `sudo kill -HUP <pid>`
 - Go to http://localhost:9090/targets and check you are correctly scraping blackbox exporter.
+ 
+### Monitoring HTTPS endpoints with the Blackbox Exporter:
+- Creating a Blackbox module
+  - Add the following content in `/etc/blackbox/blackbox.yml`
+    ```
+    modules:
+    http_prometheus:
+      prober: http
+      timeout: 5s
+      http:
+        valid_http_versions: ["HTTP/1.1", "HTTP/2"]
+        method: GET
+        fail_if_ssl: false
+        fail_if_not_ssl: true
+        tls_config:
+          insecure_skip_verify: true
+        basic_auth:
+          username: "username"
+          password: "password"
+    ```
+  - Parameters that we are checking:
+    - fail_if_not_ssl: as we are actively monitoring a HTTPS endpoint, we need to make sure that we are retrieving the page with SSL encryption. Otherwise, we count it as a failure.
+    - insecure_skip_verify: if you followed our previous tutorial, we generated our certificates with self-signed certificates. As a consequence, you are not able to verify it with a certificate authority.
+    - basic_auth: the reverse proxy endpoint is configured with a basic username/password authentication. The Blackbox exporter needs to be aware of those to probe the Prometheus server.
+  - To check the configuration, use `blackbox_exporter --config.check`
+  - Restart the blackbox. (Similarly to the prometheus)
   
+- Binding the Blackbox exporter module in prometheus
+  ```
+    - job_name: 'blackbox'
+      metrics_path: /probe
+      params:
+        module: [http_prometheus] 
+      static_configs:
+        - targets:
+          - https://localhost:8080    # Target to probe with https.
+      relabel_configs:
+        - source_labels: [__address__]
+          target_label: __param_target
+        - source_labels: [__param_target]
+          target_label: instance
+        - target_label: __address__
+          replacement: localhost:9115  # The blackbox exporter's real hostname:port.
+  ```
+  - Save the changes and restart the prometheus.
   
   
   
